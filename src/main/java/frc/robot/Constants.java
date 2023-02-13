@@ -82,7 +82,7 @@ public final class Constants {
         /** Meters per Second */
         public static final double maxSpeed = .25; //TODO: This must be tuned to specific robot
         /** Radians per Second */
-        public static final double maxAngularVelocity = 1.0; //TODO: This must be tuned to specific robot
+        public static final double maxAngularVelocity = 0.1; //TODO: This must be tuned to specific robot
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
@@ -128,6 +128,9 @@ public final class Constants {
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
+    }
+    public final class Elevator{
+        public static final int verticalElevatorExtendor = 9;
     }
 
     public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
