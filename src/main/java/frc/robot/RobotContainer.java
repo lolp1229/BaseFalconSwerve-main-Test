@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -20,7 +21,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
-
+    private final Joystick manipulator = new Joystick(1);
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
@@ -29,11 +30,21 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-
-    /* Subsystems */
+    private final JoystickButton speedThrottle = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+        
+    /*Manipulator Buttons */
+    public final JoystickButton intakeIn = new JoystickButton(manipulator, XboxController.Button.kRightBumper.value);
+    private final JoystickButton intakeOut = new JoystickButton(manipulator, XboxController.Button.kLeftBumper.value);
     private final Swerve s_Swerve = new Swerve();
+    private final Intake i_Intake = new Intake();
+    private final Elevator e_Elevator = new Elevator();
+    private final Wrist w_Wrist = new Wrist();
+    /*Manipulator Controls */
+    private final int elevatorMain = XboxController.Axis.kLeftY.value;
 
-
+    /*robot subsystems */
+    private final ElevatorCommand elevatorCommand = new ElevatorCommand(e_Elevator, manipulator);
+    private final WristCommand wristCommand = new WristCommand(w_Wrist, manipulator);
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
@@ -42,12 +53,16 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean()
-            )
+                () -> robotCentric.getAsBoolean(),
+                () -> speedThrottle.getAsBoolean()
+            ) 
         );
+        
+       
 
         // Configure the button bindings
         configureButtonBindings();
+        configureDefaultCommands();
     }
 
     /**
@@ -59,6 +74,16 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+
+        /* Manipulator Butoons */
+        intakeIn.onTrue(new InstantCommand(() -> i_Intake.runIntake()));
+        intakeOut.onTrue(new InstantCommand(() -> i_Intake.reverseIntake()));
+        intakeIn.onFalse(new InstantCommand(() -> i_Intake.stopIntake()));
+        intakeOut.onFalse(new InstantCommand(() -> i_Intake.stopIntake()));
+    }
+    private void configureDefaultCommands(){
+        e_Elevator.setDefaultCommand(elevatorCommand);
+        w_Wrist.setDefaultCommand(wristCommand);
     }
 
     /**
