@@ -80,9 +80,9 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = .25; //TODO: This must be tuned to specific robot
+        public static double maxSpeed = .25; //TODO: This must be tuned to specific robot
         /** Radians per Second */
-        public static final double maxAngularVelocity = 0.1; //TODO: This must be tuned to specific robot
+        public static double maxAngularVelocity = 0.1; //TODO: This must be tuned to specific robot
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
@@ -129,8 +129,18 @@ public final class Constants {
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
     }
+
     public final class Elevator{
-        public static final int verticalElevatorExtendor = 9;
+        public static final int elevatorMotor = 20;
+    }
+    
+    public final class Intake{
+        public static final int intakeLeft = 10;
+        public static final int intakeRight = 11;
+    }
+    
+    public final class Wrist{
+        public static final int Wrist = 12;
     }
 
     public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
@@ -148,4 +158,6 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
+
+   
 }
