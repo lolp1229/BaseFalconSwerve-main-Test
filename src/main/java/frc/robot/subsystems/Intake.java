@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase{
     private final WPI_TalonSRX intakeLeft = new WPI_TalonSRX(Constants.Intake.intakeLeft);
     private final WPI_TalonSRX intakeRight = new WPI_TalonSRX(Constants.Intake.intakeRight);
-    private final double speed = 0.5;
+    private final double speed = 0.25;
 
 public Intake(){
     intakeLeft.configFactoryDefault();

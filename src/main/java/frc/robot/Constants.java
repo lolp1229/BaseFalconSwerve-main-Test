@@ -132,6 +132,7 @@ public final class Constants {
 
     public final class Elevator{
         public static final int elevatorMotor = 20;
+        public static final int HorizontalElevator = 13;
     }
     
     public final class Intake{

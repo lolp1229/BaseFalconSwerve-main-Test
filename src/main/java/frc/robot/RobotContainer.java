@@ -39,12 +39,14 @@ public class RobotContainer {
     private final Intake i_Intake = new Intake();
     private final Elevator e_Elevator = new Elevator();
     private final Wrist w_Wrist = new Wrist();
+    private final HorizontalElevator h_Elevator = new HorizontalElevator();
     /*Manipulator Controls */
     private final int elevatorMain = XboxController.Axis.kLeftY.value;
 
     /*robot subsystems */
     private final ElevatorCommand elevatorCommand = new ElevatorCommand(e_Elevator, manipulator);
     private final WristCommand wristCommand = new WristCommand(w_Wrist, manipulator);
+    private final HorizantalElevatorCommand horizantalElevatorCommand = new HorizantalElevatorCommand(h_Elevator, manipulator);
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
@@ -84,6 +86,7 @@ public class RobotContainer {
     private void configureDefaultCommands(){
         e_Elevator.setDefaultCommand(elevatorCommand);
         w_Wrist.setDefaultCommand(wristCommand);
+        h_Elevator.setDefaultCommand(horizantalElevatorCommand);
     }
 
     /**
